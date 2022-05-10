@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %} List Workspace{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>Workspaces</h1> 
+    <ul>
+        {% for workspace in objWorkspaces %}
+            <li>{{workspace.title}} | <b>{{workspace.user}}</b> | <span style="font-size: 12px;"><i>{{workspace.created_at}}</i></span></li><br>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock%}
