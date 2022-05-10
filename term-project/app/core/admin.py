@@ -1,3 +1,11 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Workspace, Comment
+
+class CommentInline(admin.StackedInline):
+    model = Comment
+
+class WorkspaceAdmin(admin.ModelAdmin):
+    inlines = [CommentInline]
+
+admin.site.register(Workspace, WorkspaceAdmin)

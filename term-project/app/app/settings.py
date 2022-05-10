@@ -70,8 +70,6 @@ TEMPLATES = [
     },
 ]
 
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
 
 WSGI_APPLICATION = 'app.wsgi.application'
 
@@ -126,6 +124,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_REDIRECT_URL = '/' 
 
 CELERY_BROKER_URL = "redis://redis:6379"
 CELERY_RESULT_BACKEND = "redis://redis:6379"
