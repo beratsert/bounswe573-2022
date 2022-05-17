@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import Workspace, Comment
+from .models import Learningspace, Comment
 
 class CommentInline(admin.StackedInline):
     model = Comment
 
-class WorkspaceAdmin(admin.ModelAdmin):
+class LearningspaceAdmin(admin.ModelAdmin):
     inlines = [CommentInline]
 
-admin.site.register(Workspace, WorkspaceAdmin)
+admin.site.register(Learningspace, LearningspaceAdmin)

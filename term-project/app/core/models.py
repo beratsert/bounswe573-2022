@@ -6,7 +6,7 @@ from django.urls import reverse
 import time
 
 
-class Workspace(models.Model):
+class Learningspace(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -15,7 +15,7 @@ class Workspace(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title) + '-' + time.strftime('%Y%m%d%H%M%S')
-        super(Workspace, self).save(*args, **kwargs)
+        super(Learningspace, self).save(*args, **kwargs)
 
     def get_absolute_url(self): 
         return reverse('home')
@@ -25,6 +25,6 @@ class Workspace(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    workspace = models.ForeignKey(Workspace, on_delete=models.CASCADE)
+    workspace = models.ForeignKey(Learningspace, on_delete=models.CASCADE)
     desc = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
