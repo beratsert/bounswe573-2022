@@ -14,8 +14,9 @@ class Learningspace(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title) + '-' + time.strftime('%Y%m%d%H%M%S')
-        super(Learningspace, self).save(*args, **kwargs)
+        if self.pk is None:
+            self.slug = slugify(self.title) + '-' + time.strftime('%Y%m%d%H%M%S')
+            super(Learningspace, self).save(*args, **kwargs)
 
     def get_absolute_url(self): 
         return reverse('home')
@@ -25,6 +26,6 @@ class Learningspace(models.Model):
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    workspace = models.ForeignKey(Learningspace, on_delete=models.CASCADE)
+    slug = models.ForeignKey(Learningspace, on_delete=models.CASCADE)
     desc = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)

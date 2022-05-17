@@ -5,7 +5,9 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
 
-from .models import Learningspace
+from .models import Learningspace, Comment
+from .forms.form import CommentForm
+
 
 class OwnerProtectMixin(object):
     def dispatch(self, request, *args, **kwargs):
@@ -16,7 +18,7 @@ class OwnerProtectMixin(object):
 
 class LearningspaceListView(ListView):
     model = Learningspace
-    context_object_name = "objWorkspaces"
+    context_object_name = "objLearningspaces"
     queryset = Learningspace.objects.order_by('-created_at')
 
 @method_decorator(login_required, name='dispatch')
@@ -38,7 +40,7 @@ class LearningspaceDetailView(DetailView):
     model = Learningspace
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['additional'] = 'this is the value of the additional variable'
+        context['form_comment'] = CommentForm()
         return context
 
 @method_decorator(login_required, name='dispatch')
@@ -50,4 +52,17 @@ class LearningspaceUpdateView(OwnerProtectMixin, UpdateView):
 @method_decorator(login_required, name='dispatch')
 class LearningspaceDeleteView(OwnerProtectMixin, DeleteView):
     model = Learningspace
+    success_url = '/core'
+
+@method_decorator(login_required, name='dispatch')
+class CommentCreateView(CreateView):
+    model = Comment
+    fields = ['desc']
+
+    def form_valid(self, form):
+        _learningspace = get_object_or_404(Learningspace, id=self.kwargs['pk'])
+        form.instance.user = self.request.user
+        form.instance.slug = _learningspace
+        return super().form_valid(form)
+    
     success_url = '/core'
