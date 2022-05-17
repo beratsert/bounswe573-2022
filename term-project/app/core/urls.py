@@ -1,5 +1,5 @@
 from django.urls import path 
-from .views import LearningspaceCreate, LearningspaceListView, LearningspaceUserListView, LearningspaceUpdateView, LearningspaceDeleteView, LearningspaceDetailView
+from .views import LearningspaceCreate, LearningspaceListView, LearningspaceUserListView, LearningspaceUpdateView, LearningspaceDeleteView, LearningspaceDetailView, CommentCreateView
 
 
 urlpatterns = [
@@ -8,5 +8,6 @@ urlpatterns = [
     path('by/<username>/', LearningspaceUserListView.as_view(), name='learningspace-by'),
     path('<slug:slug>', LearningspaceDetailView.as_view(), name='learningspace-detail'),
     path('edit/<int:pk>', LearningspaceUpdateView.as_view(), name = 'learningspace-edit'),
-    path('delete/<int:pk>', LearningspaceDeleteView.as_view(), name='learningspace-delete')
+    path('delete/<int:pk>', LearningspaceDeleteView.as_view(), name='learningspace-delete'),
+    path('add-comment/<int:pk>', CommentCreateView.as_view(), name='add-comment')
 ]
