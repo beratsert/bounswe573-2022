@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden
+from django.urls import reverse_lazy
 
 from .models import Learningspace, Comment
 from .forms.form import CommentForm
@@ -25,6 +26,7 @@ class LearningspaceListView(ListView):
 class LearningspaceCreate(CreateView):
     model = Learningspace
     fields = ['title','desc']
+    success_url = '/core'
     
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -49,7 +51,6 @@ class LearningspaceUpdateView(OwnerProtectMixin, UpdateView):
     fields = ['title','desc']
     template_name = 'core/learningspace_update_form.html'
 
-@method_decorator(login_required, name='dispatch')
 class LearningspaceDeleteView(OwnerProtectMixin, DeleteView):
     model = Learningspace
     success_url = '/core'
@@ -58,6 +59,7 @@ class LearningspaceDeleteView(OwnerProtectMixin, DeleteView):
 class CommentCreateView(CreateView):
     model = Comment
     fields = ['desc']
+    success_url = '/core'
 
     def form_valid(self, form):
         _learningspace = get_object_or_404(Learningspace, id=self.kwargs['pk'])
@@ -65,4 +67,12 @@ class CommentCreateView(CreateView):
         form.instance.slug = _learningspace
         return super().form_valid(form)
     
+    
+
+@method_decorator(login_required, name='dispatch') 
+class CommentUpdateView(OwnerProtectMixin, UpdateView):
+    model = Comment
+    fields = ['desc']
+    template_name = 'core/learningspace_update_comment.html'
+
     success_url = '/core'
