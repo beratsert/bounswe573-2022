@@ -3,12 +3,16 @@ from django.views.generic import CreateView, ListView, DetailView, UpdateView, D
 from django.contrib.auth.decorators import login_required 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
-from django.urls import reverse_lazy
-
+from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from .models import Learningspace, Comment
 from .forms.form import CommentForm
 
+
+def LikeView(request, pk):
+    _learningspace = get_object_or_404(Learningspace, id=request.POST['learningspace_id'])
+    _learningspace.likes.add(request.user)
+    return HttpResponseRedirect(reverse('learningspace-list'))
 
 class OwnerProtectMixin(object):
     def dispatch(self, request, *args, **kwargs):
@@ -51,6 +55,7 @@ class LearningspaceUpdateView(OwnerProtectMixin, UpdateView):
     fields = ['title','desc']
     template_name = 'core/learningspace_update_form.html'
 
+@method_decorator(login_required, name='dispatch')
 class LearningspaceDeleteView(OwnerProtectMixin, DeleteView):
     model = Learningspace
     success_url = '/core'
@@ -67,7 +72,6 @@ class CommentCreateView(CreateView):
         form.instance.slug = _learningspace
         return super().form_valid(form)
     
-    
 
 @method_decorator(login_required, name='dispatch') 
 class CommentUpdateView(OwnerProtectMixin, UpdateView):
@@ -76,3 +80,5 @@ class CommentUpdateView(OwnerProtectMixin, UpdateView):
     template_name = 'core/learningspace_update_comment.html'
 
     success_url = '/core'
+
+
