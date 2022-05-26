@@ -7,6 +7,13 @@
 {% block content %}
 <div class="jumbotron">
   <h1>{{object.title}}</h1> 
+  <br/>
+  <form action="{% url 'like-learningspace' object.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit", name="learningspace_id", value = "{{object.id}}", class="btn btn-primary btn-sm">Like</button>
+  </from>
+  <br/>
+
   {% if request.user == object.user %}
   <a href="{% url 'learningspace-edit' object.id %}">Edit</a>
   <form method="post" action="{% url 'learningspace-delete' object.id %}">
