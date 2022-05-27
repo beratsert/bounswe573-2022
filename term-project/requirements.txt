@@ -3,3 +3,4 @@ celery==4.4.1
 redis==3.4.1
 psycopg2>=2.8.6,<2.8.7
 django-ckeditor==6.4.1
+Pillow==9.1.1
