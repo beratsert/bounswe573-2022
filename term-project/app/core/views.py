@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from .models import Learningspace, Comment
-from .forms.form import CommentForm
+from .forms import CommentForm
 
 
 def LikeView(request, pk):
