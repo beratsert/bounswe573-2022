@@ -36,7 +36,7 @@
     <p>{{additional}}</p>
 </p>
   {% endfor %}
-  {% if request.user == comment.user %}
+  {% if user.is_authenticated %}
   <form method="post" action="{% url 'add-comment' object.id %}">
     {% csrf_token %}
     {{ form_comment.media }}
