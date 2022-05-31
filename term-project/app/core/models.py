@@ -32,8 +32,7 @@ class Comment(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete = models.CASCADE)
-    bio = models.TextField()
-    profile_pic = models.ImageField(null=True, blank=True, upload_to="images/profile/")
-
+    bio = RichTextField(blank=True, null = True)
+    
     def __str__(self):
         return str(self.user)

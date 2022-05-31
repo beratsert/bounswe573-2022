@@ -4,6 +4,7 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<center>
 <p>Welcome to the Freemind, colearning platform..</p>
 
 {% if user.is_authenticated %}
@@ -17,4 +18,5 @@
   <a href="{% url 'signup' %}">Register</a></p>
   <p>or you can view the learningspaces but cannot contribute..</p>
 {% endif %}
+  </center>
 {% endblock %}

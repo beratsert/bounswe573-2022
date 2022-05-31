@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Search Results{% endblock %}
+
+{% block content %}
+<center>
+  {% if searched %}
+  <h1>You searched for {{ searched }}</h1> 
+  <br/>
+    {% for learningspace in learningspaces %}
+    <li><a href="{% url 'learningspace-detail' learningspace.slug %}">{{learningspace.title}}</a> | <a href="{% url 'learningspace-by' learningspace.user %}">{{learningspace.user}}</a> | <span style="font-size: 12px;">
+    {% endfor %}
+
+  {% else %}
+  <h1>You forgot keyword..</h1> 
+  {% endif %}
+</center>
+{% endblock%}

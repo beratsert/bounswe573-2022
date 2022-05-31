@@ -8,6 +8,13 @@ from django.urls import reverse_lazy, reverse
 from .models import Learningspace, Comment
 from .forms import CommentForm
 
+def search_learningspaces(request):
+    if request.method == "POST":
+        searched = request.POST['searched']
+        learningspaces = Learningspace.objects.filter(title__icontains=searched)
+        return render(request, 'core/learningspace_search.html', {'searched': searched, 'learningspaces': learningspaces})
+    else: 
+        return render(request, 'core/learningspace_search.html', {})
 
 def LikeView(request, pk):
     _learningspace = get_object_or_404(Learningspace, id=request.POST['learningspace_id'])
