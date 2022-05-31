@@ -36,11 +36,13 @@
     <p>{{additional}}</p>
 </p>
   {% endfor %}
+  {% if request.user == comment.user %}
   <form method="post" action="{% url 'add-comment' object.id %}">
     {% csrf_token %}
     {{ form_comment.media }}
     {{ form_comment.as_p }}
     <button type="submit" name="button">Contribute</button>
 </form>
+{% endif %}
 </div>
 {% endblock%}
