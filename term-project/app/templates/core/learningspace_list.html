@@ -7,7 +7,8 @@
   <h1>Recent Learningspaces</h1> 
     <ul>
         {% for learningspace in object_list %}
-        <li><a href="{% url 'learningspace-detail' learningspace.slug %}">{{learningspace.title}}</a> | <a href="{% url 'learningspace-by' learningspace.user %}">{{learningspace.user}}</a> | <span style="font-size: 12px;"><i>{{learningspace.created_at | naturaltime}}</i></span></li><br>
+        <li><a href="{% url 'learningspace-detail' learningspace.slug %}">{{learningspace.title}}</a> | <a href="{% url 'learningspace-by' learningspace.user %}">{{learningspace.user}}</a> | <span style="font-size: 12px;">
+          <i>{{learningspace.created_at | naturaltime}}</i></span></li><br>
         {% endfor %}
     </ul>
 </div>
