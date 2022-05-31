@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-kku==!()e*_1r#$k1p+)abz5b)lx91ofb(!^jzv=09tjcm19yk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://*.ondigitalocean.app', 'https://*.127.0.0.1', 'https://*.0.0.0.0', '*']
 
+CSRF_TRUSTED_ORIGINS = ['https://*.ondigitalocean.app', 'https://*.127.0.0.1', 'https://*.0.0.0.0']
 
 # Application definition
 
